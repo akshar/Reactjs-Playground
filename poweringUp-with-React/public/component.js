@@ -2,15 +2,14 @@
     constructor(){
       super();
       this.state ={
-        showComments:false
+        showComments:false,
+        comments :[{ id: 1, author: 'Morgan McCircuit', body: 'Great picture!' },
+        { id: 2, author: 'Bending Bender', body: 'Excellent stuff' }]
       };
     }
 
     _getComments() {
-      const commentList = [{ id: 1, author: 'Morgan McCircuit', body: 'Great picture!' },
-      { id: 2, author: 'Bending Bender', body: 'Excellent stuff' }]
-
-      return commentList.map((comment) => {
+      return this.state.comments.map((comment) => {
         return (
           <Comment author ={comment.author} body = {comment.body} key ={comment.id} />
         );
@@ -33,6 +32,15 @@
       });
     }
 
+    _addComment(author,body){
+      const comment = {
+        id: this.state.comments.length+1,
+        author,
+        body
+      };
+      this.setState({comments : this.state.comments.concat([comment])});
+    }
+
     render(){
       const comments = this._getComments();
       let commentNodes;
@@ -47,8 +55,10 @@
       }
 
 
+
       return (
         <div className ="commet-box">
+        <CommentForm addComment = {this._addComment.bind(this)} />
         <button onClick = {this._handleclick.bind(this)}>{buttonText}</button>
           <h3>Comments</h3>
           <h4 className="comment-count">{this._getCommentsCount(comments.length)}</h4>
@@ -71,6 +81,29 @@
       );
     }
 
+  }
+
+  class CommentForm extends React.Component {
+    render(){
+      return (
+        <form className ="comment-form" onSubmit ={this._handleSubmit.bind(this)}>
+          <label>Join the Discussion:</label>
+          <div className ="comment-form-fields">
+            <input placeholder="name:" ref={(input) => this._author = input} />
+            <textarea placeholder="comment:" ref={(textarea) => this._body = textarea}></textarea>
+          </div>
+          <div className="comment-from-action">
+            <button type="submit">POST Comment</button>
+          </div>
+        </form>
+      );
+    }
+    _handleSubmit(event){
+      event.preventDefault();
+      let author = this._author;
+      let body = this._body;
+      this.props.addComment(author.value,body.value); // passing function as props
+    }
   }
 
 
