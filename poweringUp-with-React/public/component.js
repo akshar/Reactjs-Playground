@@ -1,4 +1,11 @@
   class CommentBox extends React.Component {
+    constructor(){
+      super();
+      this.state ={
+        showComments:false
+      };
+    }
+
     _getComments() {
       const commentList = [{ id: 1, author: 'Morgan McCircuit', body: 'Great picture!' },
       { id: 2, author: 'Bending Bender', body: 'Excellent stuff' }]
@@ -9,6 +16,7 @@
         );
       });
     }
+
     _getCommentsCount(commentCount){
       if(commentCount==0){
         return "No Comments yet"
@@ -18,15 +26,33 @@
         return `${commentCount} comments`
       }
     }
+
+    _handleclick(){
+      this.setState({
+        showComments:!this.state.showComments
+      });
+    }
+
     render(){
       const comments = this._getComments();
+      let commentNodes;
+      if(this.state.showComments){
+      commentNodes =   <div className="comment-list">
+        {comments}
+        </div>
+      }
+      let buttonText = 'show comments'
+      if(this.state.showComments){
+        buttonText ='Hide Comments'
+      }
+
+
       return (
         <div className ="commet-box">
+        <button onClick = {this._handleclick.bind(this)}>{buttonText}</button>
           <h3>Comments</h3>
           <h4 className="comment-count">{this._getCommentsCount(comments.length)}</h4>
-          <div className="comment-list">
-          {comments}
-          </div>
+          {commentNodes}
         </div>
       );
     }
