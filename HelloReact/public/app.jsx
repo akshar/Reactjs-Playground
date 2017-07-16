@@ -1,17 +1,26 @@
 var Greeter = React.createClass({
+  getDefaultProps: function () {
+    return {
+      name: 'React',
+      message: 'This is a default message prop'
+    };
+  },
+
   render: function() {
-       return React.createElement('h1',null,'helloreact');  // normal syntax
-    // return ( // jsx syntax
-    //   <div>
-    //     <h1>Hello react</h1>
-    //     <p>This is from a component</p>
-    //   </div>
-    // );
+    var name = this.props.name;
+    var message = this.props.message;
+    return (
+      <div>
+        <h1>Hello {name}!</h1>
+        <p>{message}</p>
+      </div>
+    );
   }
 });
 
-
+var firstName = "Akshar"
+var message = "yo ssup mr white"
 ReactDOM.render(
-  <Greeter/>,
+  <Greeter name={firstName} message={message}/>,
   document.getElementById('app')
 );
