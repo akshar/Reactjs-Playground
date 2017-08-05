@@ -1,3 +1,6 @@
+var React    =    require('react');
+var ReactDOM =    require('react-dom');
+
 //GreeterMessage is a presentational component accepts props renders to screen
 var GreeterMessage = React.createClass({
     render: function() {
