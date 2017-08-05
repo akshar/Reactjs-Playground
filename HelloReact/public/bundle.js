@@ -48,104 +48,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-
-	//GreeterMessage is a presentational component accepts props renders to screen
-	var GreeterMessage = React.createClass({
-	  displayName: 'GreeterMessage',
-
-	  render: function render() {
-	    var name = this.props.name;
-	    var message = this.props.message;
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Hello ',
-	        name,
-	        '!'
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        message
-	      )
-	    );
-	  }
-	});
-
-	// GreeterForm is also a presnetational components and renders form and set state for parent componenet
-	var GreeterForm = React.createClass({
-	  displayName: 'GreeterForm',
-
-	  onFormSubmit: function onFormSubmit(e) {
-	    e.preventDefault();
-	    var name = this.refs.name.value;
-	    var message = this.refs.message.value;
-	    var updates = {};
-	    if (name.length > 0) {
-	      this.refs.name.value = "";
-	      updates.name = name;
-	    }
-
-	    if (message.length > 0) {
-	      this.refs.message.value = "";
-	      updates.message = message;
-	    }
-	    this.props.updateGreeter(updates);
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      'form',
-	      { onSubmit: this.onFormSubmit },
-	      React.createElement('input', { type: 'text', ref: 'name', placeholder: 'Enter Name' }),
-	      ' ',
-	      React.createElement('br', null),
-	      React.createElement('textarea', { ref: 'message', placeholder: 'Enter Message' }),
-	      React.createElement(
-	        'button',
-	        null,
-	        'submit'
-	      )
-	    );
-	  }
-	});
-
-	// Greeter is a container component which maintains state. Updates its children when states get updated.
-	// updateing props value is not allwoed in React
-	var Greeter = React.createClass({
-	  displayName: 'Greeter',
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      name: 'React',
-	      message: 'This is a default message prop'
-	    };
-	  },
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      name: this.props.name,
-	      message: this.props.message
-	    };
-	  },
-	  updateState: function updateState(updatedObj) {
-	    this.setState(updatedObj);
-	  },
-
-	  render: function render() {
-	    var name = this.state.name;
-	    var message = this.state.message;
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(GreeterMessage, { name: name, message: message }),
-	      React.createElement(GreeterForm, { updateGreeter: this.updateState })
-	    );
-	  }
-	});
+	var Greeter = __webpack_require__(159);
 
 	var firstName = "Akshar";
 
@@ -19848,6 +19751,136 @@
 
 	module.exports = __webpack_require__(3);
 
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var GreeterMessage = __webpack_require__(160);
+	var GreeterForm = __webpack_require__(161);
+
+	// Greeter is a container component which maintains state. Updates its children when states get updated.
+	// updateing props value is not allwoed in React
+	var Greeter = React.createClass({
+	  displayName: 'Greeter',
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      name: 'React',
+	      message: 'This is a default message prop'
+	    };
+	  },
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: this.props.name,
+	      message: this.props.message
+	    };
+	  },
+	  updateState: function updateState(updatedObj) {
+	    this.setState(updatedObj);
+	  },
+
+	  render: function render() {
+	    var name = this.state.name;
+	    var message = this.state.message;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(GreeterMessage, { name: name, message: message }),
+	      React.createElement(GreeterForm, { updateGreeter: this.updateState })
+	    );
+	  }
+	});
+
+	module.exports = Greeter;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	//GreeterMessage is a presentational component accepts props renders to screen
+	var GreeterMessage = React.createClass({
+	  displayName: 'GreeterMessage',
+
+	  render: function render() {
+	    var name = this.props.name;
+	    var message = this.props.message;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Hello ',
+	        name,
+	        '!'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        message
+	      )
+	    );
+	  }
+	});
+
+	module.exports = GreeterMessage;
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	// GreeterForm is also a presnetational components and renders form and set state for parent componenet
+	var GreeterForm = React.createClass({
+	  displayName: "GreeterForm",
+
+	  onFormSubmit: function onFormSubmit(e) {
+	    e.preventDefault();
+	    var name = this.refs.name.value;
+	    var message = this.refs.message.value;
+	    var updates = {};
+	    if (name.length > 0) {
+	      this.refs.name.value = "";
+	      updates.name = name;
+	    }
+
+	    if (message.length > 0) {
+	      this.refs.message.value = "";
+	      updates.message = message;
+	    }
+	    this.props.updateGreeter(updates);
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "form",
+	      { onSubmit: this.onFormSubmit },
+	      React.createElement("input", { type: "text", ref: "name", placeholder: "Enter Name" }),
+	      " ",
+	      React.createElement("br", null),
+	      React.createElement("textarea", { ref: "message", placeholder: "Enter Message" }),
+	      React.createElement(
+	        "button",
+	        null,
+	        "submit"
+	      )
+	    );
+	  }
+	});
+
+	module.exports = GreeterForm;
 
 /***/ })
 /******/ ]);
