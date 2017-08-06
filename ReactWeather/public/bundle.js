@@ -24939,23 +24939,28 @@
 	var Weather = React.createClass({
 	  displayName: 'Weather',
 
-
 	  getInitialState: function getInitialState() {
-	    return null;
+	    return {
+	      location: 'Bangalore',
+	      temp: 27
+	    };
 	  },
 
-	  setWeatherState: function setWeatherState(city) {
+	  handleSearch: function handleSearch(location) {
 	    this.setState({
-	      city: city
+	      location: location,
+	      temp: 23
 	    });
 	  },
 
 	  render: function render() {
+	    var location = this.state.location;
+	    var temp = this.state.temp;
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(WeatherForm, { setCity: this.setWeatherState }),
-	      React.createElement(WeatherMessage, null)
+	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
+	      React.createElement(WeatherMessage, { location: location, temp: temp })
 	    );
 	  }
 	});
@@ -24973,12 +24978,14 @@
 	var WeatherForm = React.createClass({
 	  displayName: "WeatherForm",
 
-	  handleSubmit: function handleSubmit(e) {
-	    e.preventDeafult();
-	    var city = this.ref.city.value;
-	    if (city != "") {
-	      this.ref.city.value = "";
-	      this.props.city(city);
+	  onFormSubmit: function onFormSubmit(e) {
+	    e.preventDefault();
+
+	    var location = this.refs.location.value;
+
+	    if (location.length > 0) {
+	      this.refs.location.value = "";
+	      this.props.onSearch(location);
 	    }
 	  },
 
@@ -24993,8 +25000,8 @@
 	      ),
 	      React.createElement(
 	        "form",
-	        { action: this.handleSubmit },
-	        React.createElement("input", { type: "text", ref: "city", placeholder: "Enter city name" }),
+	        { onSubmit: this.onFormSubmit },
+	        React.createElement("input", { type: "text", ref: "location", placeholder: "Enter city name" }),
 	        " ",
 	        React.createElement("br", null),
 	        React.createElement(
@@ -25022,9 +25029,13 @@
 
 	  render: function render() {
 	    return React.createElement(
-	      'h1',
+	      'h3',
 	      null,
-	      'It\'s 25 in Bangalore!'
+	      'It\'s ',
+	      this.props.temp,
+	      ' in ',
+	      this.props.location,
+	      '!'
 	    );
 	  }
 	});

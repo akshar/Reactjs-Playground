@@ -4,22 +4,27 @@ var WeatherForm =  require('WeatherForm');
 var WeatherMessage =  require('WeatherMessage');
 
 var Weather = React.createClass({
-
   getInitialState: function() {
-    return null;
+    return {
+      location: 'Bangalore',
+      temp: 27
+    }
   },
 
-  setWeatherState: function(city) {
-      this.setState({
-        city: city
-      })
+  handleSearch: function(location) {
+    this.setState({
+      location: location,
+      temp: 23
+    });
   },
 
   render: function() {
+    var location = this.state.location;
+    var temp = this.state.temp;
     return (
       <div>
-      <WeatherForm setCity={this.setWeatherState}/>
-      <WeatherMessage/>
+      <WeatherForm onSearch={this.handleSearch}/>
+      <WeatherMessage location={location} temp={temp} />
       </div>
 
     );
