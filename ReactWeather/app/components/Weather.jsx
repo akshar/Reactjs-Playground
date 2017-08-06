@@ -1,10 +1,27 @@
 var React = require('react');
 
+var WeatherForm =  require('WeatherForm');
+var WeatherMessage =  require('WeatherMessage');
+
 var Weather = React.createClass({
+
+  getInitialState: function() {
+    return null;
+  },
+
+  setWeatherState: function(city) {
+      this.setState({
+        city: city
+      })
+  },
 
   render: function() {
     return (
-      <h1>Weather Component </h1>
+      <div>
+      <WeatherForm setCity={this.setWeatherState}/>
+      <WeatherMessage/>
+      </div>
+
     );
   }
 });
