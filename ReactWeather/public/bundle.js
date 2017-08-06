@@ -24942,33 +24942,50 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      location: 'Bangalore',
-	      temp: 27
+	      isLoading: false
 	    };
 	  },
 
 	  handleSearch: function handleSearch(location) {
 	    var self = this;
+	    this.setState({ isLoading: true });
+
 	    openWeatherMap.getTemp(location).then(function (temp) {
 	      self.setState({
 	        location: location,
-	        temp: temp
+	        temp: temp,
+	        isLoading: false
 	      });
-	    }, function (err) {
-	      alert(err);
+	    }, function (errormessage) {
+	      self.setState({ isLoading: false });
+	      alert(errormessage);
 	    });
 	  },
 
 	  render: function render() {
 	    var _state = this.state,
+	        isLoading = _state.isLoading,
 	        location = _state.location,
 	        temp = _state.temp;
+
+
+	    function renderMessage() {
+	      if (isLoading) {
+	        return React.createElement(
+	          'h3',
+	          null,
+	          'Fetching weather...'
+	        );
+	      } else if (location && temp) {
+	        return React.createElement(WeatherMessage, { location: location, temp: temp });
+	      }
+	    }
 
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
-	      React.createElement(WeatherMessage, { location: location, temp: temp })
+	      renderMessage()
 	    );
 	  }
 	});
@@ -25075,7 +25092,7 @@
 	        return res.data.main.temp;
 	      }
 	    }, function (res) {
-	      throw new Error(err.data.message);
+	      throw new Error(res.data.message);
 	    });
 	  }
 	};
