@@ -24934,7 +24934,7 @@
 	var React = __webpack_require__(1);
 
 	var WeatherForm = __webpack_require__(219);
-	var WeatherMessage = __webpack_require__(220);
+	var WeatherMessage = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"WeatherMessage\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var Weather = React.createClass({
 	  displayName: 'Weather',
@@ -24954,8 +24954,10 @@
 	  },
 
 	  render: function render() {
-	    var location = this.state.location;
-	    var temp = this.state.temp;
+	    var _state = this.state,
+	        location = _state.location,
+	        temp = _state.temp;
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25017,32 +25019,7 @@
 	module.exports = WeatherForm;
 
 /***/ }),
-/* 220 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var WeatherMessage = React.createClass({
-	  displayName: 'WeatherMessage',
-
-	  render: function render() {
-	    return React.createElement(
-	      'h3',
-	      null,
-	      'It\'s ',
-	      this.props.temp,
-	      ' in ',
-	      this.props.location,
-	      '!'
-	    );
-	  }
-	});
-
-	module.exports = WeatherMessage;
-
-/***/ }),
+/* 220 */,
 /* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 

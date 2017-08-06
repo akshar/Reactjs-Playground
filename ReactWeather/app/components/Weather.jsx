@@ -19,8 +19,7 @@ var Weather = React.createClass({
   },
 
   render: function() {
-    var location = this.state.location;
-    var temp = this.state.temp;
+    var {location, temp} = this.state;
     return (
       <div>
       <WeatherForm onSearch={this.handleSearch}/>
